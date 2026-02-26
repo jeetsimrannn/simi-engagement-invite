@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simranjeet & Simran | Ring Ceremony</title>
+    <meta
+      name="description"
+      content="Ring ceremony invite with blessing note, countdown, ceremony details, and venue map."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="invite-page">
+    <div id="inviteIntro" class="intro-overlay" role="dialog" aria-label="Invitation envelope">
+      <div class="intro-panel">
+        <div id="envelopeMedia" class="envelope-media" role="button" tabindex="0" aria-label="Open invitation">
+          <img id="introImage" class="intro-image" src="envelope-intro.jpg" alt="" />
+          <video id="introVideo" class="intro-video" preload="auto" playsinline webkit-playsinline muted>
+            <source src="envelope-intro-video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-shape shape-1" aria-hidden="true"></div>
+    <div class="bg-shape shape-2" aria-hidden="true"></div>
+
+    <main class="container">
+      <section class="landing-hero" id="landingHero">
+        <video id="heroBgVideo" class="hero-bg-video" preload="auto" autoplay muted playsinline webkit-playsinline poster="envelope-intro.jpg">
+          <source src="main-page-video.mp4" type="video/mp4" />
+          <source src="main-page-video.mov" type="video/quicktime" />
+        </video>
+        <div class="hero-overlay"></div>
+        <p class="hero-ik-onkar" aria-label="Ik Onkar">ੴ</p>
+        <div class="hero-content">
+          <p class="hero-line reveal-line hero-kicker" style="--line-delay: 0.1s">TOGETHER WITH THEIR FAMILIES</p>
+          <p class="hero-line reveal-line hero-parents" style="--line-delay: 0.45s">Talvinder Kaur &amp; Gurbaksh Singh</p>
+          <p class="hero-line reveal-line hero-request" style="--line-delay: 0.8s">invite you to grace the ring ceremony of</p>
+          <h1 class="hero-line reveal-line hero-names" style="--line-delay: 1.15s">Simranjeet Singh</h1>
+          <p class="hero-line reveal-line hero-and" style="--line-delay: 1.45s">AND</p>
+          <h1 class="hero-line reveal-line hero-names" style="--line-delay: 1.75s">Simran Khurana</h1>
+        </div>
+        <div class="hero-scroll-cue" aria-hidden="true">
+          <span>celebrate with us</span>
+          <span class="hero-arrow" aria-hidden="true">⌄</span>
+        </div>
+      </section>
+
+      <section class="card countdown-card">
+        <p class="countdown-main-datetime">
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 2v4"></path>
+            <path d="M16 2v4"></path>
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <path d="M3 10h18"></path>
+          </svg>
+          <span>14 March 2026 | 06:30 PM</span>
+        </p>
+        <h2>Live Countdown</h2>
+          <p class="countdown-sub">To the most special day of our lives</p>
+          <div id="countdown" class="countdown" role="timer" aria-live="polite">
+            <div><span id="days">0</span><small>Days</small></div>
+            <div><span id="hours">0</span><small>Hours</small></div>
+            <div><span id="minutes">0</span><small>Minutes</small></div>
+            <div><span id="seconds">0</span><small>Seconds</small></div>
+          </div>
+      </section>
+
+      <section class="divider-row" aria-hidden="true">
+        <span></span>
+        <span class="divider-heart">
+          <svg class="icon icon-heart icon-heart-filled" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+          </svg>
+        </span>
+        <span></span>
+      </section>
+
+      <section class="our-story-section" aria-label="Our story">
+        <div class="our-story-card">
+          <figure class="our-story-photo-wrap">
+            <img src="our-story.jpeg" alt="Simranjeet and Simran together" class="our-story-photo" />
+          </figure>
+          <div class="our-story-content">
+            <h2>Our Story</h2>
+            <p class="our-story-copy">
+              Our journey began with a simple hello...
+              <br />
+              and now we begin forever.
+            </p>
+            <p class="our-story-monogram" aria-hidden="true"><span></span>S&amp;S<span></span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="venue-section">
+        <h2>Ceremony Details</h2>
+        <p class="venue-note">Please join us at the venue below and use the map for easy directions.</p>
+        <div class="venue-card">
+          <div class="detail-list" aria-label="Event details">
+            <p>
+              <svg class="icon icon-map-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <strong>Venue:</strong><br />The Page Hotel &amp; Banquet
+            </p>
+            <p>
+              <svg class="icon icon-map-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <strong>Address:</strong><br />Delhi Rd, Opp. Tilyar Lake, Omaxe City, Sector-29, Rohtak, Haryana 124021
+            </p>
+            <p>
+              <svg class="icon icon-map-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <strong>Meetup Point:</strong><br />Mannat Haveli, Rohtak
+            </p>
+          </div>
+          <div class="map-wrap">
+            <iframe
+              title="Venue map"
+              src="https://www.google.com/maps?q=The+Page+Hotel+%26+Banquet+Rohtak&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <a class="btn map-btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=The+Page+Hotel+%26+Banquet+Rohtak">Open in Google Maps</a>
+        </div>
+      </section>
+
+      <section class="queries-strip" aria-label="Contact information">
+        <h3>For Any Queries</h3>
+        <p>
+          <span class="query-item">
+            <svg class="icon icon-phone" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            Balbir Singh (Lucky):
+            <a href="tel:+919818475609">+91 9818475609</a>
+          </span>
+          <span class="query-item">
+            <svg class="icon icon-phone" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            Gurbaksh Singh (Daisy):
+            <a href="tel:+919810893947">+91 9810893947</a>
+          </span>
+        </p>
+      </section>
+
+      <section class="blessings-section reveal-up" aria-label="Seeking your blessings">
+        <div class="blessings-divider" aria-hidden="true"></div>
+        <div class="blessings-content">
+          <h2>Seeking Your Blessings</h2>
+          <p>
+            With <span class="emphasis">Waheguru's grace</span>
+            <br />
+            and
+            <br />
+            the blessings of our elders,
+            <br />
+            we begin this new chapter of our lives.
+          </p>
+        </div>
+        <div class="blessings-divider" aria-hidden="true"></div>
+      </section>
+
+      <footer class="invite-footer" aria-label="Footer">
+        <p class="footer-icon" aria-hidden="true">
+          <svg class="icon icon-heart icon-heart-outline" viewBox="0 0 24 24">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+          </svg>
+        </p>
+        <h3>Simranjeet &amp; Simran</h3>
+        <p class="footer-date">March 14, 2026</p>
+        <p class="footer-hosts">With love from our families</p>
+        <p class="footer-credits">Made with love by Simran</p>
+      </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

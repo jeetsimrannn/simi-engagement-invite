@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Engagement Admin Dashboard</title>
+    <meta name="description" content="Private admin dashboard for engagement invite." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-page">
+    <div class="bg-shape shape-1" aria-hidden="true"></div>
+    <div class="bg-shape shape-2" aria-hidden="true"></div>
+
+    <main class="container">
+      <section id="authCard" class="card auth-card">
+        <h1 class="dashboard-title">Private Dashboard Access</h1>
+        <form id="authForm" class="stack" autocomplete="off">
+          <label for="adminPin">Enter access PIN</label>
+          <input id="adminPin" name="adminPin" type="password" placeholder="Enter PIN" required />
+          <button class="btn" type="submit">Unlock Dashboard</button>
+          <p id="authError" class="error-text" hidden>Incorrect PIN. Try again.</p>
+        </form>
+      </section>
+
+      <section id="dashboard" hidden>
+        <article class="card">
+          <div class="admin-topbar">
+            <h1 class="dashboard-title">Engagement Dashboard</h1>
+            <button id="lockDashboard" class="btn btn-soft" type="button">Lock</button>
+          </div>
+          <p class="muted-text">Visible only after successful PIN access.</p>
+          <p id="storageMode" class="muted-text"></p>
+        </article>
+
+        <section>
+          <article class="card updates-card">
+            <h2>Admin Panel</h2>
+            <p class="muted-text">Database features have been removed for this project.</p>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
