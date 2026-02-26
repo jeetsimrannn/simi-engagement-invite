@@ -138,12 +138,13 @@ if (heroBgVideo) {
   });
 }
 
-const revealUpItems = Array.from(document.querySelectorAll(".reveal-up"));
+const revealItems = Array.from(document.querySelectorAll(".reveal-on-scroll"));
 
-if (revealUpItems.length) {
+if (revealItems.length) {
+  document.body.classList.add("motion-enabled");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReducedMotion) {
-    revealUpItems.forEach((el) => el.classList.add("is-visible"));
+    revealItems.forEach((el) => el.classList.add("is-visible"));
   } else {
     const observer = new IntersectionObserver(
       (entries, obs) => {
@@ -155,8 +156,102 @@ if (revealUpItems.length) {
       },
       { threshold: 0.22 }
     );
-    revealUpItems.forEach((el) => observer.observe(el));
+    revealItems.forEach((el) => observer.observe(el));
   }
+}
+
+const parallaxItems = Array.from(document.querySelectorAll("[data-parallax]"));
+
+if (parallaxItems.length) {
+  let parallaxTicking = false;
+
+  const updateParallax = () => {
+    const viewportCenter = window.innerHeight / 2;
+    parallaxItems.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      const elementCenter = rect.top + rect.height / 2;
+      const factor = Number(el.dataset.parallax || 0.06);
+      const delta = (viewportCenter - elementCenter) * factor * 0.14;
+      const shift = Math.max(-18, Math.min(18, delta));
+      el.style.setProperty("--parallax-shift", `${shift.toFixed(2)}px`);
+    });
+    parallaxTicking = false;
+  };
+
+  const onScroll = () => {
+    if (parallaxTicking) return;
+    parallaxTicking = true;
+    requestAnimationFrame(updateParallax);
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", updateParallax);
+  updateParallax();
+}
+
+const ceremonyTabs = Array.from(document.querySelectorAll(".ceremony-tab"));
+const ceremonyPanelsWrap = document.getElementById("ceremonyPanels");
+const ceremonyPanels = Array.from(document.querySelectorAll(".ceremony-panel"));
+const ceremonyTabsIndicator = document.querySelector(".ceremony-tabs-indicator");
+let ceremonySwitchTimer = null;
+
+function positionCeremonyIndicator(activeTab) {
+  if (!ceremonyTabsIndicator || !activeTab) return;
+  ceremonyTabsIndicator.style.width = `${activeTab.offsetWidth}px`;
+  ceremonyTabsIndicator.style.transform = `translateX(${activeTab.offsetLeft}px)`;
+}
+
+function setActiveCeremonyPanel(targetPanelKey, shouldAnimate = true) {
+  const nextTab = ceremonyTabs.find((tab) => tab.dataset.target === targetPanelKey);
+  const nextPanel = ceremonyPanels.find((panel) => panel.dataset.panel === targetPanelKey);
+  if (!nextTab || !nextPanel) return;
+
+  const applySwitch = () => {
+    ceremonyTabs.forEach((tab) => {
+      const isActive = tab === nextTab;
+      tab.classList.toggle("is-active", isActive);
+      tab.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+
+    ceremonyPanels.forEach((panel) => {
+      const isActive = panel === nextPanel;
+      panel.classList.toggle("is-active", isActive);
+      panel.hidden = !isActive;
+    });
+
+    positionCeremonyIndicator(nextTab);
+  };
+
+  if (!ceremonyPanelsWrap || !shouldAnimate) {
+    applySwitch();
+    return;
+  }
+
+  ceremonyPanelsWrap.classList.add("is-fading");
+  if (ceremonySwitchTimer) clearTimeout(ceremonySwitchTimer);
+
+  ceremonySwitchTimer = setTimeout(() => {
+    applySwitch();
+    requestAnimationFrame(() => {
+      ceremonyPanelsWrap.classList.remove("is-fading");
+    });
+  }, 140);
+}
+
+if (ceremonyTabs.length && ceremonyPanels.length) {
+  ceremonyTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      if (tab.classList.contains("is-active")) return;
+      setActiveCeremonyPanel(tab.dataset.target);
+    });
+  });
+
+  const initialActiveTab = ceremonyTabs.find((tab) => tab.classList.contains("is-active")) || ceremonyTabs[0];
+  if (initialActiveTab) setActiveCeremonyPanel(initialActiveTab.dataset.target, false);
+  window.addEventListener("resize", () => {
+    const activeTab = ceremonyTabs.find((tab) => tab.classList.contains("is-active"));
+    if (activeTab) positionCeremonyIndicator(activeTab);
+  });
 }
 
 tickCountdown();

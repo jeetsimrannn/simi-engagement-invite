@@ -496,6 +496,10 @@ select {
   box-shadow: 0 4px 12px rgba(73, 61, 49, 0.12);
 }
 
+.countdown div.is-seconds {
+  animation: secondsGlow 2.8s ease-in-out infinite;
+}
+
 .countdown span {
   display: block;
   font-size: clamp(2rem, 3.8vw, 2.6rem);
@@ -516,12 +520,31 @@ select {
   background: #f5f1e9;
   border-color: transparent;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .invite-page .countdown-card {
   background: #f5f1e9;
   padding-top: clamp(40px, 8vw, 86px);
   padding-bottom: clamp(28px, 6vw, 56px);
+}
+
+.countdown-card::before {
+  content: "";
+  position: absolute;
+  inset: -16% -8%;
+  background:
+    radial-gradient(circle at 14% 22%, rgba(198, 167, 94, 0.1), transparent 44%),
+    radial-gradient(circle at 84% 78%, rgba(198, 167, 94, 0.08), transparent 42%);
+  transform: translate3d(0, var(--parallax-shift, 0px), 0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.countdown-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .invitation-card {
@@ -633,36 +656,132 @@ select {
   font-size: clamp(0.88rem, 1.1vw, 0.98rem);
 }
 
-.venue-card {
-  background: #f8f8f8;
-  border: 1px solid rgba(140, 116, 76, 0.14);
-  border-radius: 18px;
-  box-shadow: 0 8px 18px rgba(40, 28, 13, 0.08);
-  padding: 24px;
+.ceremony-tabs-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #f5efe6;
+  border-radius: 20px;
+  border: 1px solid rgba(160, 133, 94, 0.18);
+  box-shadow: 0 10px 24px rgba(56, 44, 27, 0.07);
+  padding: clamp(18px, 2.8vw, 28px);
   text-align: left;
+  position: relative;
+  overflow: hidden;
 }
 
-.detail-list {
+.ceremony-tabs-card::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  background: radial-gradient(circle at 16% 80%, rgba(198, 167, 94, 0.07), transparent 44%);
+  transform: translate3d(0, var(--parallax-shift, 0px), 0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.ceremony-tabs-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ceremony-tabs {
+  position: relative;
   display: grid;
-  gap: 16px;
-  margin-bottom: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  background: #efe6d8;
 }
 
-.detail-list p {
+.ceremony-tabs-indicator {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  height: calc(100% - 12px);
+  width: calc(50% - 10px);
+  border-radius: 999px;
+  background: linear-gradient(120deg, #c9a774, #b88e58);
+  transition: transform 0.3s ease, width 0.3s ease;
+  box-shadow: 0 4px 10px rgba(134, 97, 45, 0.18);
+  pointer-events: none;
+}
+
+.ceremony-tab {
+  position: relative;
+  z-index: 1;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #7a6a58;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.ceremony-tab.is-active {
+  color: #fff;
+}
+
+.ceremony-tab:focus-visible {
+  outline: 2px solid rgba(190, 150, 88, 0.42);
+  outline-offset: 2px;
+}
+
+.ceremony-panels {
+  margin-top: 20px;
+  transition: opacity 0.26s ease-in-out;
+}
+
+.ceremony-panels.is-fading {
+  opacity: 0;
+}
+
+.ceremony-panel {
+  animation: ceremonyPanelFade 0.28s ease-in-out;
+}
+
+.ceremony-place {
   margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+  font-style: normal;
+  font-weight: 600;
+  color: #584f47;
+}
+
+.ceremony-address,
+.ceremony-note-copy {
+  margin: 8px 0 0;
+  font-family: "Montserrat", sans-serif;
   font-size: clamp(0.88rem, 1.1vw, 0.98rem);
   line-height: 1.5;
   color: #6f645a;
-  padding-left: 34px;
-  position: relative;
 }
 
-.detail-list .icon-map-pin {
-  position: absolute;
-  left: 0;
-  top: 1px;
-  width: 18px;
-  height: 18px;
+.ceremony-time {
+  margin: 8px 0 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(0.88rem, 1.1vw, 0.98rem);
+  color: #7b5f3b;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.ceremony-meta-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.ceremony-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  margin-top: 2px;
   color: #b08e66;
   stroke: currentColor;
   fill: none;
@@ -671,20 +790,42 @@ select {
   stroke-linejoin: round;
 }
 
-.detail-list strong {
-  color: #584f47;
-  font-weight: 600;
+.ceremony-map-wrap {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(163, 136, 98, 0.2);
+  margin-top: 16px;
+  background: #e5dccf;
 }
 
-.map-btn {
+.ceremony-map-wrap iframe {
   width: 100%;
+  min-height: 240px;
+  border: 0;
+}
+
+.ceremony-action {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  background: #4b3f33;
-  color: #fff;
+  min-width: 228px;
   border-radius: 10px;
-  font-size: 0.92rem;
-  padding: 12px 14px;
-  font-weight: 600;
+  border: 1px solid #5a4428;
+  color: #fff;
+  background: #5a4428;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 11px 18px;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.ceremony-action:hover {
+  background: #6b5232;
+  border-color: #6b5232;
+  color: #fff;
 }
 
 .queries-strip {
@@ -745,7 +886,7 @@ select {
   position: absolute;
   left: 50%;
   top: 52%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% + var(--parallax-shift, 0px)));
   font-family: "Cormorant", serif;
   font-size: clamp(8rem, 20vw, 16rem);
   color: rgba(198, 167, 94, 0.05);
@@ -754,9 +895,21 @@ select {
   pointer-events: none;
 }
 
+.blessings-section::after {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(198, 167, 94, 0.1), transparent 42%),
+    radial-gradient(circle at 88% 84%, rgba(198, 167, 94, 0.09), transparent 42%);
+  transform: translate3d(0, var(--parallax-shift, 0px), 0);
+  will-change: transform;
+  pointer-events: none;
+}
+
 .blessings-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 920px;
   margin: 0 auto;
 }
@@ -803,15 +956,40 @@ select {
   margin-top: clamp(40px, 4.6vw, 56px);
 }
 
-.reveal-up {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+.reveal-on-scroll {
+  opacity: 1;
+  transform: none;
 }
 
-.reveal-up.is-visible {
+body.motion-enabled .reveal-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+body.motion-enabled .reveal-on-scroll.from-left {
+  transform: translate3d(-20px, 0, 0);
+}
+
+body.motion-enabled .reveal-on-scroll.from-right {
+  transform: translate3d(20px, 0, 0);
+}
+
+body.motion-enabled .reveal-on-scroll.from-up {
+  transform: translate3d(0, 24px, 0);
+}
+
+body.motion-enabled .reveal-on-scroll.fade-only {
+  transform: none;
+}
+
+body.motion-enabled .reveal-on-scroll.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 .invite-footer {
@@ -931,6 +1109,23 @@ select {
     radial-gradient(circle at 92% 88%, rgba(255, 255, 255, 0.4) 0, transparent 40%),
     linear-gradient(180deg, rgba(246, 238, 228, 0.95), rgba(241, 232, 219, 0.95));
   box-shadow: 0 10px 24px rgba(76, 60, 42, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.our-story-card::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  background: radial-gradient(circle at 78% 22%, rgba(198, 167, 94, 0.09), transparent 46%);
+  transform: translate3d(0, var(--parallax-shift, 0px), 0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.our-story-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .our-story-photo-wrap {
@@ -1154,6 +1349,27 @@ iframe {
   }
 }
 
+@keyframes ceremonyPanelFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes secondsGlow {
+  0%,
+  100% {
+    box-shadow: 0 4px 12px rgba(73, 61, 49, 0.12);
+  }
+
+  50% {
+    box-shadow: 0 6px 16px rgba(183, 145, 84, 0.22);
+  }
+}
+
 @keyframes arrowBounce {
   0%,
   100% {
@@ -1268,17 +1484,41 @@ iframe {
     letter-spacing: 0.12em;
   }
 
-  .detail-list p {
-    font-size: clamp(0.88rem, 1.1vw, 0.98rem);
-    line-height: 1.35;
-  }
-
   .venue-section {
     padding: 14px 12px 28px;
   }
 
-  .venue-card {
-    padding: 16px;
+  .ceremony-tabs-card {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .ceremony-tab {
+    font-size: 0.84rem;
+    padding: 10px 10px;
+  }
+
+  .ceremony-panels {
+    margin-top: 14px;
+  }
+
+  .ceremony-place {
+    font-size: clamp(0.98rem, 4.2vw, 1.12rem);
+  }
+
+  .ceremony-address,
+  .ceremony-note-copy,
+  .ceremony-time {
+    font-size: clamp(0.88rem, 1.1vw, 0.98rem);
+  }
+
+  .ceremony-map-wrap iframe {
+    min-height: 220px;
+  }
+
+  .ceremony-action {
+    width: 100%;
+    min-width: 0;
   }
 
   .queries-strip {

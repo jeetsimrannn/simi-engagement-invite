@@ -53,7 +53,7 @@
         </div>
       </section>
 
-      <section class="card countdown-card">
+      <section class="card countdown-card reveal-on-scroll from-up" data-parallax="0.06">
         <p class="countdown-main-datetime">
           <svg class="icon icon-calendar" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M8 2v4"></path>
@@ -66,10 +66,10 @@
         <h2>Live Countdown</h2>
           <p class="countdown-sub">To the most special day of our lives</p>
           <div id="countdown" class="countdown" role="timer" aria-live="polite">
-            <div><span id="days">0</span><small>Days</small></div>
-            <div><span id="hours">0</span><small>Hours</small></div>
-            <div><span id="minutes">0</span><small>Minutes</small></div>
-            <div><span id="seconds">0</span><small>Seconds</small></div>
+            <div class="reveal-on-scroll from-up" style="--reveal-delay: 0ms"><span id="days">0</span><small>Days</small></div>
+            <div class="reveal-on-scroll from-up" style="--reveal-delay: 100ms"><span id="hours">0</span><small>Hours</small></div>
+            <div class="reveal-on-scroll from-up" style="--reveal-delay: 200ms"><span id="minutes">0</span><small>Minutes</small></div>
+            <div class="reveal-on-scroll from-up is-seconds" style="--reveal-delay: 300ms"><span id="seconds">0</span><small>Seconds</small></div>
           </div>
       </section>
 
@@ -83,12 +83,12 @@
         <span></span>
       </section>
 
-      <section class="our-story-section" aria-label="Our story">
+      <section class="our-story-section reveal-on-scroll from-up" aria-label="Our story" data-parallax="0.05">
         <div class="our-story-card">
-          <figure class="our-story-photo-wrap">
+          <figure class="our-story-photo-wrap reveal-on-scroll from-left">
             <img src="our-story.jpeg" alt="Simranjeet and Simran together" class="our-story-photo" />
           </figure>
-          <div class="our-story-content">
+          <div class="our-story-content reveal-on-scroll from-right">
             <h2>Our Story</h2>
             <p class="our-story-copy">
               Our journey began with a simple hello...
@@ -100,42 +100,114 @@
         </div>
       </section>
 
-      <section class="venue-section">
+      <section class="venue-section reveal-on-scroll from-up" data-parallax="0.05">
         <h2>Ceremony Details</h2>
         <p class="venue-note">Please join us at the venue below and use the map for easy directions.</p>
-        <div class="venue-card">
-          <div class="detail-list" aria-label="Event details">
-            <p>
-              <svg class="icon icon-map-pin" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <strong>Venue:</strong><br />The Page Hotel &amp; Banquet
-            </p>
-            <p>
-              <svg class="icon icon-map-pin" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <strong>Address:</strong><br />Delhi Rd, Opp. Tilyar Lake, Omaxe City, Sector-29, Rohtak, Haryana 124021
-            </p>
-            <p>
-              <svg class="icon icon-map-pin" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <strong>Meetup Point:</strong><br />Mannat Haveli, Rohtak
-            </p>
+        <div class="ceremony-tabs-card">
+          <div class="ceremony-tabs reveal-on-scroll from-up" style="--reveal-delay: 80ms" role="tablist" aria-label="Ceremony location tabs">
+            <button
+              type="button"
+              class="ceremony-tab is-active"
+              id="tab-main-venue"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-main-venue"
+              data-tab-index="0"
+              data-target="main-venue"
+            >
+              Main Venue
+            </button>
+            <button
+              type="button"
+              class="ceremony-tab"
+              id="tab-meetup-point"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-meetup-point"
+              data-tab-index="1"
+              data-target="meetup-point"
+            >
+              Meetup Point
+            </button>
+            <span class="ceremony-tabs-indicator" aria-hidden="true"></span>
           </div>
-          <div class="map-wrap">
-            <iframe
-              title="Venue map"
-              src="https://www.google.com/maps?q=The+Page+Hotel+%26+Banquet+Rohtak&output=embed"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+          <div id="ceremonyPanels" class="ceremony-panels">
+            <article
+              class="ceremony-panel is-active"
+              id="panel-main-venue"
+              role="tabpanel"
+              aria-labelledby="tab-main-venue"
+              data-panel="main-venue"
+            >
+              <h3 class="ceremony-place">The Page Hotel &amp; Banquet</h3>
+              <p class="ceremony-time ceremony-meta-line">
+                <svg class="icon icon-calendar ceremony-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 2v4"></path>
+                  <path d="M16 2v4"></path>
+                  <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                  <path d="M3 10h18"></path>
+                </svg>
+                <span>Time: 6:30 PM</span>
+              </p>
+              <p class="ceremony-address ceremony-meta-line">
+                <svg class="icon icon-map-pin ceremony-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Delhi Rd, Opp. Tilyar Lake, Omaxe City, Sector-29, Rohtak, Haryana 124021</span>
+              </p>
+              <div class="ceremony-map-wrap">
+                <iframe
+                  title="Main venue map"
+                  src="https://www.google.com/maps?q=The+Page+Hotel+%26+Banquet+Rohtak&output=embed"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+              <a class="ceremony-action" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=The+Page+Hotel+%26+Banquet+Rohtak">
+                Open in Google Maps
+              </a>
+            </article>
+
+            <article
+              class="ceremony-panel"
+              id="panel-meetup-point"
+              role="tabpanel"
+              aria-labelledby="tab-meetup-point"
+              data-panel="meetup-point"
+              hidden
+            >
+              <h3 class="ceremony-place">Mannat Haveli, Rohtak</h3>
+              <p class="ceremony-time ceremony-meta-line">
+                <svg class="icon icon-calendar ceremony-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 2v4"></path>
+                  <path d="M16 2v4"></path>
+                  <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                  <path d="M3 10h18"></path>
+                </svg>
+                <span>Meetup Time: 05:30 PM</span>
+              </p>
+              <p class="ceremony-note-copy ceremony-meta-line">
+                <svg class="icon ceremony-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 19h16a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1Z"></path>
+                  <path d="M8 9h8"></path>
+                  <path d="M8 13h5"></path>
+                </svg>
+                <span>Guests will assemble here before proceeding to the venue.</span>
+              </p>
+              <div class="ceremony-map-wrap">
+                <iframe
+                  title="Meetup point map"
+                  src="https://www.google.com/maps?q=Mannat+Haveli+Rohtak&output=embed"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+              <a class="ceremony-action" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=Mannat+Haveli+Rohtak">
+                Navigate to Meetup Location
+              </a>
+            </article>
           </div>
-          <a class="btn map-btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=The+Page+Hotel+%26+Banquet+Rohtak">Open in Google Maps</a>
         </div>
       </section>
 
@@ -159,11 +231,11 @@
         </p>
       </section>
 
-      <section class="blessings-section reveal-up" aria-label="Seeking your blessings">
+      <section class="blessings-section reveal-on-scroll from-up" aria-label="Seeking your blessings" data-parallax="0.07">
         <div class="blessings-divider" aria-hidden="true"></div>
         <div class="blessings-content">
-          <h2>Seeking Your Blessings</h2>
-          <p>
+          <h2 class="reveal-on-scroll from-up">Seeking Your Blessings</h2>
+          <p class="reveal-on-scroll from-up" style="--reveal-delay: 200ms">
             With <span class="emphasis">Waheguru's grace</span>
             <br />
             and
@@ -176,7 +248,7 @@
         <div class="blessings-divider" aria-hidden="true"></div>
       </section>
 
-      <footer class="invite-footer" aria-label="Footer">
+      <footer class="invite-footer reveal-on-scroll fade-only" aria-label="Footer">
         <p class="footer-icon" aria-hidden="true">
           <svg class="icon icon-heart icon-heart-outline" viewBox="0 0 24 24">
             <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
@@ -185,7 +257,10 @@
         <h3>Simranjeet &amp; Simran</h3>
         <p class="footer-date">March 14, 2026</p>
         <p class="footer-hosts">With love from our families</p>
-        <p class="footer-credits">Made with love by Simran</p>
+        <p class="footer-credits">
+          Made with love by
+          <a href="https://www.instagram.com/jeetsimrann?igsh=NnMxcHNib2oxb25v&utm_source=qr" target="_blank" rel="noreferrer">Simranjeet</a>
+        </p>
       </footer>
 
     </main>
