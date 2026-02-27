@@ -144,7 +144,7 @@ if (inviteIntro) {
         // If intro video autoplay fails, continue to reveal after fallback timeout.
       }
     }
-    introTimeoutId = setTimeout(hideIntro, 4500);
+    introTimeoutId = setTimeout(hideIntro, INTRO_VISIBLE_MS);
   };
 
   window.addEventListener("load", startIntroExperience, { once: true });
