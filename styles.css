@@ -872,12 +872,12 @@ select {
   top: 50%;
   transform: translate(-50%, calc(-50% + var(--parallax-shift, 0px)));
   font-family: "Cormorant", serif;
-  font-size: clamp(9rem, 22vw, 17rem);
+  font-size: clamp(7rem, 16vw, 12rem);
   font-weight: 600;
   line-height: 1;
-  color: rgba(212, 175, 55, 0.05);
-  filter: blur(2.8px);
-  text-shadow: 0 0 24px rgba(212, 175, 55, 0.06);
+  color: rgba(212, 175, 55, 0.08);
+  filter: blur(2.2px);
+  text-shadow: 0 0 22px rgba(212, 175, 55, 0.1);
   will-change: transform;
   pointer-events: none;
   user-select: none;
