@@ -262,7 +262,7 @@ body.hero-video-visible .hero-overlay {
   z-index: 3;
   display: grid;
   place-items: center;
-  opacity: 0.86;
+  opacity: 0.74;
   filter: drop-shadow(0 2px 8px rgba(12, 8, 4, 0.45));
   animation: ikOnkarFade 1.5s ease forwards, ikOnkarFloat 8s ease-in-out infinite;
 }
