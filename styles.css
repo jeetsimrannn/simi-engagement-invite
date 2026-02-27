@@ -861,14 +861,21 @@ select {
 }
 
 .blessings-section::before {
-  content: "";
+  content: "ॐ";
   position: absolute;
-  inset: -8%;
-  background:
-    radial-gradient(circle at 12% 14%, rgba(212, 175, 55, 0.09), transparent 40%),
-    radial-gradient(circle at 86% 80%, rgba(219, 168, 126, 0.12), transparent 42%);
-  transform: translate3d(0, var(--parallax-shift, 0px), 0);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + var(--parallax-shift, 0px)));
+  font-family: "Cormorant", serif;
+  font-size: clamp(9rem, 22vw, 17rem);
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(212, 175, 55, 0.05);
+  filter: blur(2.8px);
+  text-shadow: 0 0 24px rgba(212, 175, 55, 0.06);
   will-change: transform;
+  pointer-events: none;
+  user-select: none;
 }
 
 .blessings-section::after {
