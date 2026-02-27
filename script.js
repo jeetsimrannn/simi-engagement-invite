@@ -12,12 +12,20 @@ const envelopeMedia = document.getElementById("envelopeMedia");
 const introVideo = document.getElementById("introVideo");
 const heroBgVideo = document.getElementById("heroBgVideo");
 const bgAudio = document.getElementById("bgAudio");
+const audioToggle = document.getElementById("audioToggle");
 const INTRO_VISIBLE_MS = 2500;
 let introTimeoutId = null;
 let heroVideoPrimed = false;
 let bgAudioStarted = false;
 let introAutoStarted = false;
 const audioStartEvents = ["pointerdown", "touchstart", "keydown"];
+
+function updateAudioToggleState() {
+  if (!audioToggle || !bgAudio) return;
+  const isMuted = bgAudio.muted || bgAudio.paused;
+  audioToggle.classList.toggle("is-muted", isMuted);
+  audioToggle.setAttribute("aria-label", isMuted ? "Unmute background music" : "Mute background music");
+}
 
 async function startBackgroundAudioWithIntro() {
   if (!bgAudio) return;
@@ -34,6 +42,7 @@ async function startBackgroundAudioWithIntro() {
   } catch {
     // Ignore playback blocking; fallback listeners will retry on interaction.
   }
+  updateAudioToggleState();
 }
 
 async function handleAudioStartFallback() {
@@ -145,9 +154,35 @@ if (inviteIntro) {
 if (bgAudio) {
   bgAudio.loop = true;
   bgAudio.volume = 0.42;
-  bgAudio.muted = false;
+  bgAudio.muted = true;
   addAudioStartFallbackListeners();
+  updateAudioToggleState();
 }
+
+audioToggle?.addEventListener("click", async () => {
+  if (!bgAudio) return;
+
+  if (!bgAudioStarted || bgAudio.paused) {
+    if (!bgAudioStarted) {
+      bgAudio.currentTime = 0;
+    }
+    bgAudio.muted = false;
+    try {
+      await bgAudio.play();
+      bgAudioStarted = true;
+      removeAudioStartFallbackListeners();
+    } catch {
+      bgAudio.muted = true;
+      updateAudioToggleState();
+      return;
+    }
+    updateAudioToggleState();
+    return;
+  }
+
+  bgAudio.muted = !bgAudio.muted;
+  updateAudioToggleState();
+});
 
 if (!inviteIntro) {
   document.body.classList.remove("intro-active");
