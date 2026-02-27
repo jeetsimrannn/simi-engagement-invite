@@ -360,51 +360,6 @@ body.intro-complete .reveal-line {
   text-shadow: 0 2px 8px rgba(16, 10, 5, 0.58);
 }
 
-.audio-toggle {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 54px;
-  height: 54px;
-  border-radius: 999px;
-  border: 1px solid rgba(245, 233, 212, 0.72);
-  background: rgba(46, 33, 22, 0.62);
-  color: #f7ebd8;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  z-index: 90;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 8px 22px rgba(18, 11, 6, 0.28);
-  transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
-}
-
-.audio-toggle:hover {
-  transform: translateY(-1px);
-  background: rgba(46, 33, 22, 0.74);
-}
-
-.audio-toggle .audio-icon {
-  width: 22px;
-  height: 22px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.audio-toggle .icon-off {
-  display: none;
-}
-
-.audio-toggle.is-muted .icon-on {
-  display: none;
-}
-
-.audio-toggle.is-muted .icon-off {
-  display: block;
-}
 
 .muted-text {
   color: var(--muted);
@@ -1499,13 +1454,6 @@ iframe {
     bottom: 14px;
     letter-spacing: 0.11em;
     font-size: 0.72rem;
-  }
-
-  .audio-toggle {
-    width: 48px;
-    height: 48px;
-    right: 14px;
-    bottom: 14px;
   }
 
   .countdown {

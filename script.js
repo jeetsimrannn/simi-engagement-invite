@@ -12,35 +12,41 @@ const envelopeMedia = document.getElementById("envelopeMedia");
 const introVideo = document.getElementById("introVideo");
 const heroBgVideo = document.getElementById("heroBgVideo");
 const bgAudio = document.getElementById("bgAudio");
-const audioToggle = document.getElementById("audioToggle");
 const INTRO_VISIBLE_MS = 2500;
 let introTimeoutId = null;
 let heroVideoPrimed = false;
 let bgAudioStarted = false;
 
-function updateAudioToggleState() {
-  if (!audioToggle || !bgAudio) return;
-  const isMuted = bgAudio.muted;
-  audioToggle.classList.toggle("is-muted", isMuted);
-  audioToggle.setAttribute("aria-label", isMuted ? "Unmute background music" : "Mute background music");
-}
-
-async function startBackgroundAudioFromGesture() {
+async function primeBackgroundAudioFromGesture() {
   if (!bgAudio) return;
   if (!bgAudioStarted) {
     bgAudio.currentTime = 0;
   }
   bgAudio.loop = true;
+  bgAudio.volume = 0;
+  bgAudio.muted = true;
+  try {
+    await bgAudio.play();
+    bgAudioStarted = true;
+  } catch {
+    // If browser blocks playback, we retry once reveal begins.
+  }
+}
+
+async function startBackgroundAudioAfterReveal() {
+  if (!bgAudio) return;
+  bgAudio.loop = true;
+  if (!bgAudioStarted) {
+    bgAudio.currentTime = 0;
+  }
   bgAudio.volume = 0.42;
   bgAudio.muted = false;
   try {
     await bgAudio.play();
     bgAudioStarted = true;
   } catch {
-    // If browser blocks playback, keep muted until user toggles.
-    bgAudio.muted = true;
+    // Ignore playback blocking.
   }
-  updateAudioToggleState();
 }
 
 function tickCountdown() {
@@ -61,7 +67,7 @@ function tickCountdown() {
   countdownIds.seconds.textContent = seconds;
 }
 
-function hideIntro() {
+async function hideIntro() {
   if (!inviteIntro || inviteIntro.hidden) return;
   if (introTimeoutId) {
     clearTimeout(introTimeoutId);
@@ -71,6 +77,7 @@ function hideIntro() {
   document.body.classList.remove("intro-active");
   // Start hero video immediately so video and line-by-line text reveal run together.
   startHeroBgVideo();
+  startBackgroundAudioAfterReveal();
   document.body.classList.add("intro-complete");
   setTimeout(() => {
     inviteIntro.hidden = true;
@@ -113,7 +120,7 @@ if (inviteIntro) {
   envelopeMedia?.addEventListener("click", async () => {
     if (inviteIntro.classList.contains("is-opening")) return;
     inviteIntro.classList.add("is-opening");
-    await startBackgroundAudioFromGesture();
+    await primeBackgroundAudioFromGesture();
     await primeHeroBgVideoFromGesture();
     if (introVideo) {
       introVideo.currentTime = 0;
@@ -137,45 +144,9 @@ if (inviteIntro) {
 
 if (bgAudio) {
   bgAudio.loop = true;
-  bgAudio.volume = 0.42;
+  bgAudio.volume = 0;
   bgAudio.muted = true;
-  updateAudioToggleState();
 }
-
-audioToggle?.addEventListener("click", async () => {
-  if (!bgAudio) return;
-
-  if (!bgAudioStarted) {
-    bgAudio.currentTime = 0;
-    bgAudio.muted = false;
-    try {
-      await bgAudio.play();
-      bgAudioStarted = true;
-    } catch {
-      bgAudio.muted = true;
-      updateAudioToggleState();
-      return;
-    }
-  }
-
-  bgAudio.muted = !bgAudio.muted;
-  if (!bgAudio.muted && bgAudio.paused) {
-    try {
-      await bgAudio.play();
-      bgAudioStarted = true;
-    } catch {
-      bgAudio.muted = true;
-    }
-  }
-  updateAudioToggleState();
-});
-
-const startAudioOnFirstInteraction = async () => {
-  if (bgAudioStarted || !bgAudio) return;
-  await startBackgroundAudioFromGesture();
-};
-
-window.addEventListener("pointerdown", startAudioOnFirstInteraction, { once: true });
 
 if (!inviteIntro) {
   document.body.classList.remove("intro-active");
