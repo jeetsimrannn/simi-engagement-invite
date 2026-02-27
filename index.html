@@ -104,41 +104,8 @@
         <h2>Ceremony Details</h2>
         <p class="venue-note">Please join us at the venue below and use the map for easy directions.</p>
         <div class="ceremony-tabs-card">
-          <div class="ceremony-tabs reveal-on-scroll from-up" style="--reveal-delay: 80ms" role="tablist" aria-label="Ceremony location tabs">
-            <button
-              type="button"
-              class="ceremony-tab is-active"
-              id="tab-main-venue"
-              role="tab"
-              aria-selected="true"
-              aria-controls="panel-main-venue"
-              data-tab-index="0"
-              data-target="main-venue"
-            >
-              Main Venue
-            </button>
-            <button
-              type="button"
-              class="ceremony-tab"
-              id="tab-meetup-point"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-meetup-point"
-              data-tab-index="1"
-              data-target="meetup-point"
-            >
-              Meetup Point
-            </button>
-            <span class="ceremony-tabs-indicator" aria-hidden="true"></span>
-          </div>
           <div id="ceremonyPanels" class="ceremony-panels">
-            <article
-              class="ceremony-panel is-active"
-              id="panel-main-venue"
-              role="tabpanel"
-              aria-labelledby="tab-main-venue"
-              data-panel="main-venue"
-            >
+            <article class="ceremony-panel is-active">
               <h3 class="ceremony-place">The Page Hotel &amp; Banquet</h3>
               <p class="ceremony-time ceremony-meta-line">
                 <svg class="icon icon-calendar ceremony-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -166,45 +133,6 @@
               </div>
               <a class="ceremony-action" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=The+Page+Hotel+%26+Banquet+Rohtak">
                 Open in Google Maps
-              </a>
-            </article>
-
-            <article
-              class="ceremony-panel"
-              id="panel-meetup-point"
-              role="tabpanel"
-              aria-labelledby="tab-meetup-point"
-              data-panel="meetup-point"
-              hidden
-            >
-              <h3 class="ceremony-place">Mannat Haveli, Rohtak</h3>
-              <p class="ceremony-time ceremony-meta-line">
-                <svg class="icon icon-calendar ceremony-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M8 2v4"></path>
-                  <path d="M16 2v4"></path>
-                  <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-                  <path d="M3 10h18"></path>
-                </svg>
-                <span>Meetup Time: 05:30 PM</span>
-              </p>
-              <p class="ceremony-note-copy ceremony-meta-line">
-                <svg class="icon ceremony-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M4 19h16a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1Z"></path>
-                  <path d="M8 9h8"></path>
-                  <path d="M8 13h5"></path>
-                </svg>
-                <span>Guests will assemble here before proceeding to the venue.</span>
-              </p>
-              <div class="ceremony-map-wrap">
-                <iframe
-                  title="Meetup point map"
-                  src="https://www.google.com/maps?q=Mannat+Haveli+Rohtak&output=embed"
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-              <a class="ceremony-action" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=Mannat+Haveli+Rohtak">
-                Navigate to Meetup Location
               </a>
             </article>
           </div>
