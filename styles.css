@@ -342,20 +342,20 @@ body.intro-complete .reveal-line {
 
 .audio-toggle {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 54px;
-  height: 54px;
+  right: max(14px, env(safe-area-inset-right));
+  bottom: max(14px, calc(env(safe-area-inset-bottom) + 14px));
+  width: 58px;
+  height: 58px;
   border-radius: 999px;
-  border: 1px solid rgba(245, 233, 212, 0.72);
-  background: rgba(46, 33, 22, 0.64);
-  color: #f7ebd8;
+  border: 2px solid rgba(255, 245, 224, 0.92);
+  background: rgba(36, 24, 14, 0.84);
+  color: #fff7e6;
   display: grid;
   place-items: center;
   cursor: pointer;
-  z-index: 120;
+  z-index: 9999;
   backdrop-filter: blur(8px);
-  box-shadow: 0 8px 22px rgba(18, 11, 6, 0.28);
+  box-shadow: 0 10px 26px rgba(18, 11, 6, 0.4);
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
@@ -365,11 +365,11 @@ body.intro-complete .reveal-line {
 }
 
 .audio-toggle .audio-icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   stroke: currentColor;
   fill: none;
-  stroke-width: 1.8;
+  stroke-width: 2.1;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -1483,10 +1483,8 @@ iframe {
   }
 
   .audio-toggle {
-    width: 48px;
-    height: 48px;
-    right: 14px;
-    bottom: 14px;
+    width: 54px;
+    height: 54px;
   }
 
   .countdown {
