@@ -271,6 +271,16 @@ body.hero-video-visible .hero-overlay {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(92%)
+    sepia(18%)
+    saturate(330%)
+    hue-rotate(345deg)
+    brightness(103%)
+    contrast(97%)
+    drop-shadow(0 0 8px rgba(246, 237, 224, 0.3));
 }
 
 .hero-line {
