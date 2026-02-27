@@ -16,26 +16,9 @@ const INTRO_VISIBLE_MS = 2500;
 let introTimeoutId = null;
 let heroVideoPrimed = false;
 let bgAudioStarted = false;
-let bgAudioPrimed = false;
+let introAutoStarted = false;
 
-async function primeBackgroundAudioFromGesture() {
-  if (!bgAudio) return;
-  if (bgAudioPrimed) return;
-  bgAudio.currentTime = 0;
-  bgAudio.loop = true;
-  bgAudio.volume = 0;
-  bgAudio.muted = true;
-  try {
-    await bgAudio.play();
-    bgAudio.pause();
-    bgAudio.currentTime = 0;
-    bgAudioPrimed = true;
-  } catch {
-    // If browser blocks playback, we retry once reveal begins.
-  }
-}
-
-async function startBackgroundAudioAfterReveal() {
+async function startBackgroundAudioWithIntro() {
   if (!bgAudio) return;
   bgAudio.loop = true;
   bgAudio.currentTime = 0;
@@ -77,7 +60,6 @@ async function hideIntro() {
   document.body.classList.remove("intro-active");
   // Start hero video immediately so video and line-by-line text reveal run together.
   startHeroBgVideo();
-  startBackgroundAudioAfterReveal();
   document.body.classList.add("intro-complete");
   setTimeout(() => {
     inviteIntro.hidden = true;
@@ -117,35 +99,32 @@ async function primeHeroBgVideoFromGesture() {
 if (inviteIntro) {
   document.body.classList.remove("intro-complete");
   document.body.classList.add("intro-active");
-  envelopeMedia?.addEventListener("click", async () => {
-    if (inviteIntro.classList.contains("is-opening")) return;
+  const startIntroExperience = async () => {
+    if (introAutoStarted || inviteIntro.classList.contains("is-opening")) return;
+    introAutoStarted = true;
     inviteIntro.classList.add("is-opening");
-    await primeBackgroundAudioFromGesture();
     await primeHeroBgVideoFromGesture();
+    await startBackgroundAudioWithIntro();
     if (introVideo) {
       introVideo.currentTime = 0;
       introVideo.playbackRate = 2;
       try {
         await introVideo.play();
       } catch {
-        // If intro video cannot autoplay, continue anyway.
+        // If intro video autoplay fails, continue to reveal after fallback timeout.
       }
     }
-    introTimeoutId = setTimeout(hideIntro, INTRO_VISIBLE_MS);
-  });
+    introTimeoutId = setTimeout(hideIntro, 4500);
+  };
 
-  envelopeMedia?.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      envelopeMedia.click();
-    }
-  });
+  window.addEventListener("load", startIntroExperience, { once: true });
+  setTimeout(startIntroExperience, 120);
 }
 
 if (bgAudio) {
   bgAudio.loop = true;
-  bgAudio.volume = 0;
-  bgAudio.muted = true;
+  bgAudio.volume = 0.42;
+  bgAudio.muted = false;
 }
 
 if (!inviteIntro) {
@@ -166,11 +145,6 @@ if (introVideo) {
   introVideo.addEventListener("error", () => {
     setTimeout(hideIntro, 1800);
   });
-  setTimeout(() => {
-    if (inviteIntro?.classList.contains("is-opening") && !inviteIntro.hidden) {
-      hideIntro();
-    }
-  }, 4500);
 }
 
 if (heroBgVideo) {
