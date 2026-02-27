@@ -16,18 +16,20 @@ const INTRO_VISIBLE_MS = 2500;
 let introTimeoutId = null;
 let heroVideoPrimed = false;
 let bgAudioStarted = false;
+let bgAudioPrimed = false;
 
 async function primeBackgroundAudioFromGesture() {
   if (!bgAudio) return;
-  if (!bgAudioStarted) {
-    bgAudio.currentTime = 0;
-  }
+  if (bgAudioPrimed) return;
+  bgAudio.currentTime = 0;
   bgAudio.loop = true;
   bgAudio.volume = 0;
   bgAudio.muted = true;
   try {
     await bgAudio.play();
-    bgAudioStarted = true;
+    bgAudio.pause();
+    bgAudio.currentTime = 0;
+    bgAudioPrimed = true;
   } catch {
     // If browser blocks playback, we retry once reveal begins.
   }
@@ -36,9 +38,7 @@ async function primeBackgroundAudioFromGesture() {
 async function startBackgroundAudioAfterReveal() {
   if (!bgAudio) return;
   bgAudio.loop = true;
-  if (!bgAudioStarted) {
-    bgAudio.currentTime = 0;
-  }
+  bgAudio.currentTime = 0;
   bgAudio.volume = 0.42;
   bgAudio.muted = false;
   try {
