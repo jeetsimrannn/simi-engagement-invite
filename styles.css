@@ -274,13 +274,8 @@ body.hero-video-visible .hero-overlay {
   filter:
     brightness(0)
     saturate(100%)
-    invert(92%)
-    sepia(18%)
-    saturate(330%)
-    hue-rotate(345deg)
-    brightness(103%)
-    contrast(97%)
-    drop-shadow(0 0 8px rgba(246, 237, 224, 0.3));
+    invert(100%)
+    drop-shadow(0 0 8px rgba(246, 237, 224, 0.28));
 }
 
 .hero-line {
