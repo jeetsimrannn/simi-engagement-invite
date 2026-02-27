@@ -17,19 +17,40 @@ let introTimeoutId = null;
 let heroVideoPrimed = false;
 let bgAudioStarted = false;
 let introAutoStarted = false;
+const audioStartEvents = ["pointerdown", "touchstart", "keydown"];
 
 async function startBackgroundAudioWithIntro() {
   if (!bgAudio) return;
   bgAudio.loop = true;
-  bgAudio.currentTime = 0;
+  if (!bgAudioStarted) {
+    bgAudio.currentTime = 0;
+  }
   bgAudio.volume = 0.42;
   bgAudio.muted = false;
   try {
     await bgAudio.play();
     bgAudioStarted = true;
+    removeAudioStartFallbackListeners();
   } catch {
-    // Ignore playback blocking.
+    // Ignore playback blocking; fallback listeners will retry on interaction.
   }
+}
+
+async function handleAudioStartFallback() {
+  if (bgAudioStarted) return;
+  await startBackgroundAudioWithIntro();
+}
+
+function addAudioStartFallbackListeners() {
+  audioStartEvents.forEach((eventName) => {
+    window.addEventListener(eventName, handleAudioStartFallback, { passive: true });
+  });
+}
+
+function removeAudioStartFallbackListeners() {
+  audioStartEvents.forEach((eventName) => {
+    window.removeEventListener(eventName, handleAudioStartFallback);
+  });
 }
 
 function tickCountdown() {
@@ -60,6 +81,7 @@ async function hideIntro() {
   document.body.classList.remove("intro-active");
   // Start hero video immediately so video and line-by-line text reveal run together.
   startHeroBgVideo();
+  startBackgroundAudioWithIntro();
   document.body.classList.add("intro-complete");
   setTimeout(() => {
     inviteIntro.hidden = true;
@@ -104,7 +126,6 @@ if (inviteIntro) {
     introAutoStarted = true;
     inviteIntro.classList.add("is-opening");
     await primeHeroBgVideoFromGesture();
-    await startBackgroundAudioWithIntro();
     if (introVideo) {
       introVideo.currentTime = 0;
       introVideo.playbackRate = 2;
@@ -125,6 +146,7 @@ if (bgAudio) {
   bgAudio.loop = true;
   bgAudio.volume = 0.42;
   bgAudio.muted = false;
+  addAudioStartFallbackListeners();
 }
 
 if (!inviteIntro) {
