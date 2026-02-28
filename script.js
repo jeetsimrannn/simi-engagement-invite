@@ -18,6 +18,7 @@ let introTimeoutId = null;
 let heroVideoPrimed = false;
 let bgAudioStarted = false;
 let introAutoStarted = false;
+let heroSourceConfigured = false;
 const audioStartEvents = ["pointerdown", "touchstart", "keydown"];
 
 function updateAudioToggleState() {
@@ -99,21 +100,26 @@ async function hideIntro() {
 
 async function startHeroBgVideo() {
   if (!heroBgVideo) return;
+  configureHeroVideoSource();
   heroBgVideo.muted = true;
   heroBgVideo.playsInline = true;
   if (!heroVideoPrimed) {
     heroBgVideo.currentTime = 0;
   }
-  document.body.classList.add("hero-video-visible");
+  if (heroBgVideo.readyState < 2) {
+    await waitForHeroCanPlay(1800);
+  }
   try {
     await heroBgVideo.play();
+    document.body.classList.add("hero-video-visible");
   } catch {
-    // Ignore playback blocking and keep the hero visible.
+    // Keep poster/overlay if playback is blocked or buffering.
   }
 }
 
 async function primeHeroBgVideoFromGesture() {
   if (!heroBgVideo || heroVideoPrimed) return;
+  configureHeroVideoSource();
   heroBgVideo.muted = true;
   heroBgVideo.playsInline = true;
   heroBgVideo.currentTime = 0;
@@ -125,6 +131,44 @@ async function primeHeroBgVideoFromGesture() {
   } catch {
     // If priming fails, startHeroBgVideo will retry later.
   }
+}
+
+function configureHeroVideoSource() {
+  if (!heroBgVideo || heroSourceConfigured) return;
+  const highSrc = heroBgVideo.dataset.videoHigh;
+  const lowSrc = heroBgVideo.dataset.videoLow || highSrc;
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const networkType = connection?.effectiveType || "";
+  const saveData = Boolean(connection?.saveData);
+  const isSlowNetwork =
+    saveData ||
+    networkType.includes("2g") ||
+    networkType.includes("3g") ||
+    networkType === "slow-2g";
+  const preferredSrc = isSlowNetwork ? lowSrc : highSrc;
+  heroBgVideo.src = preferredSrc || highSrc || "";
+  heroBgVideo.load();
+  heroSourceConfigured = true;
+}
+
+function waitForHeroCanPlay(timeoutMs = 1800) {
+  if (!heroBgVideo) return Promise.resolve();
+  return new Promise((resolve) => {
+    let done = false;
+    let timer = null;
+    const cleanup = () => {
+      if (done) return;
+      done = true;
+      heroBgVideo.removeEventListener("canplay", onReady);
+      heroBgVideo.removeEventListener("loadeddata", onReady);
+      if (timer) clearTimeout(timer);
+      resolve();
+    };
+    const onReady = () => cleanup();
+    heroBgVideo.addEventListener("canplay", onReady, { once: true });
+    heroBgVideo.addEventListener("loadeddata", onReady, { once: true });
+    timer = setTimeout(cleanup, timeoutMs);
+  });
 }
 
 if (inviteIntro) {

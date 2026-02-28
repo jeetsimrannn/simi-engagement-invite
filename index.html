@@ -32,10 +32,18 @@
 
     <main class="container">
       <section class="landing-hero" id="landingHero">
-        <video id="heroBgVideo" class="hero-bg-video" preload="auto" autoplay muted playsinline webkit-playsinline poster="envelope-intro.jpg">
-          <source src="main-page-video.mp4" type="video/mp4" />
-          <source src="main-page-video.mov" type="video/quicktime" />
-        </video>
+        <video
+          id="heroBgVideo"
+          class="hero-bg-video"
+          preload="metadata"
+          autoplay
+          muted
+          playsinline
+          webkit-playsinline
+          poster="envelope-intro.jpg"
+          data-video-high="main-page-video.mp4"
+          data-video-low="main-page-video-lite.mp4"
+        ></video>
         <div class="hero-overlay"></div>
         <div class="hero-ganesha" aria-hidden="true">
           <img src="ganesha-symbol.png" alt="" class="hero-ganesha-img" />
