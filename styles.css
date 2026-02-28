@@ -292,6 +292,13 @@ body.hero-video-visible .hero-overlay {
   font-family: "Source Sans 3", sans-serif;
 }
 
+.hero-grandmother-name {
+  display: block;
+  margin-block: 6px;
+  font-size: clamp(1.1rem, 2vw, 1.48rem);
+  letter-spacing: 0.1em;
+}
+
 .hero-ceremony {
   color: #f4deab;
   font-family: "Playfair Display", serif;
@@ -1466,6 +1473,12 @@ iframe {
     font-size: 0.78rem;
     letter-spacing: 0.12em;
     line-height: 1.45;
+  }
+
+  .hero-grandmother-name {
+    margin-block: 4px;
+    font-size: clamp(0.96rem, 4.6vw, 1.18rem);
+    letter-spacing: 0.08em;
   }
 
   .hero-names {
